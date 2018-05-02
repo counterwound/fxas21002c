@@ -22,15 +22,16 @@ extern "C"
 //*****************************************************************************
 // Register addreses
 //*****************************************************************************
+#define GYRO_WHO_AM_I         0x0C
 
 //*****************************************************************************
 // Functions
 //*****************************************************************************
 
 // I2C General Send and receive functions
-extern void I2AGReceive(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
+extern void I2CGyroReceive(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
                     uint8_t *pReceiveData, uint8_t ui8NumBytes);
-extern void I2CAGSend(uint8_t ui32SlaveAddress, uint8_t ui8NumArgs, ...);
+extern void I2CGyroSend(uint8_t ui32SlaveAddress, uint8_t ui8NumArgs, ...);
 
 // FXAS21002C functions
 
