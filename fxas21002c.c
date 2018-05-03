@@ -150,3 +150,39 @@ void I2CGyroSend(uint8_t ui32SlaveAddress, uint8_t ui8NumArgs, ...)
         va_end(listArguments);
     }
 }
+
+void GyroStandby(uint32_t ui32SlaveAddress)
+{
+    uint8_t ui8Register[1];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
+    ui8Register[0] &= ~(0B00000011);
+    I2CGyroSend(ui32SlaveAddress, 2, GYRO_CTRL_REG1, ui8Register[0]);
+}
+
+void GyroReady(uint32_t ui32SlaveAddress)
+{
+    uint8_t ui8Register[1];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
+    ui8Register[0] &= ~(0B00000011);
+    ui8Register[0] |= 0B00000001;
+    I2CGyroSend(ui32SlaveAddress, 2, GYRO_CTRL_REG1, ui8Register[0]);
+}
+
+void GyroActive(uint32_t ui32SlaveAddress)
+{
+    uint8_t ui8Register[1];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
+    ui8Register[0] &= ~(0B00000011);
+    ui8Register[0] |= 0B00000010;
+    I2CGyroSend(ui32SlaveAddress, 2, GYRO_CTRL_REG1, ui8Register[0]);
+}
+
+void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR)
+{
+    uint8_t ui8Register[1];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG0, ui8Register, sizeof(ui8Register));
+    ui8Register[0] &= ~(0B00000011);
+    ui8Register[0] |= tGFSR;
+    I2CGyroSend(ui32SlaveAddress, 2, GYRO_CTRL_REG0, ui8Register[0]);
+}
+
