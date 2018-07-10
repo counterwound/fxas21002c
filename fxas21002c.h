@@ -50,13 +50,20 @@ extern "C"
 //*****************************************************************************
 
 // Set initial input parameters
-typedef enum
+//typedef enum
+//{
+//    GFSR_2000,
+//    GFSR_1000,
+//    GFSR_500,
+//    GFSR_250
+//} tGyroRange;
+
+typedef struct
 {
-    GFSR_2000,
-    GFSR_1000,
-    GFSR_500,
-    GFSR_250
-} tGyroRange;
+    int16_t x;
+    int16_t y;
+    int16_t z;
+} tRawData;
 
 // I2C General Send and receive functions
 extern void I2CGyroReceive(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
@@ -68,7 +75,10 @@ extern void I2CGyroSend(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
 void GyroStandby(uint32_t ui32SlaveAddress);
 void GyroActive(uint32_t ui32SlaveAddress);
 void GyroReady(uint32_t ui32SlaveAddress);
-//void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR);
+void GyroReset(uint32_t ui32SlaveAddress);
+void GyroSelfTest(uint32_t ui32SlaveAddress, _Bool bState);
+void GyroTemp(uint32_t ui32SlaveAddress);
+void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD );
 
 //*****************************************************************************
 // Mark the end of the C bindings section for C++ compilers.
