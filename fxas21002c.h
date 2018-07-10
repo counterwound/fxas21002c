@@ -71,9 +71,8 @@ typedef enum
 	ODR_200HZ,
 	ODR_100HZ,
 	ODR_50HZ,
-	ODR_12_5HZ,
-	ODR_6_25HZ,
-	ODR_1_56HZ
+	ODR_25HZ,
+	ODR_12_5HZ
 } tOutputDataRate;
 
 typedef struct
@@ -94,6 +93,7 @@ void GyroStandby(uint32_t ui32SlaveAddress);
 void GyroActive(uint32_t ui32SlaveAddress);
 void GyroReset(uint32_t ui32SlaveAddress);
 void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR);
+void GyroOutputDataRate(uint32_t ui32SlaveAddress,  tOutputDataRate tODR);
 //void GyroReady(uint32_t ui32SlaveAddress);
 //void GyroSelfTest(uint32_t ui32SlaveAddress, _Bool bState);
 //void GyroTemp(uint32_t ui32SlaveAddress);
