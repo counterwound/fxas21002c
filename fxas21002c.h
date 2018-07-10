@@ -61,13 +61,14 @@ typedef enum
 // I2C General Send and receive functions
 extern void I2CGyroReceive(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
                     uint8_t *pReceiveData, uint8_t ui8NumBytes);
-extern void I2CGyroSend(uint8_t ui32SlaveAddress, uint8_t ui8NumArgs, ...);
+extern void I2CGyroSend(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
+                    uint8_t *pTransmitData, uint8_t ui8NumBytes);
 
 // FXAS21002C functions
-extern void GyroStandby(uint32_t ui32SlaveAddress);
-extern void GyroActive(uint32_t ui32SlaveAddress);
-extern void GyroReady(uint32_t ui32SlaveAddress);
-extern void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR);
+//void GyroStandby(uint32_t ui32SlaveAddress);
+//void GyroActive(uint32_t ui32SlaveAddress);
+//void GyroReady(uint32_t ui32SlaveAddress);
+//void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR);
 
 //*****************************************************************************
 // Mark the end of the C bindings section for C++ compilers.
