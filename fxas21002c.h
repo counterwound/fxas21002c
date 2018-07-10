@@ -50,13 +50,25 @@ extern "C"
 //*****************************************************************************
 
 // Set initial input parameters
-//typedef enum
-//{
-//    GFSR_2000,
-//    GFSR_1000,
-//    GFSR_500,
-//    GFSR_250
-//} tGyroRange;
+typedef enum
+{
+    GFSR_2000PS,
+    GFSR_1000PS,
+    GFSR_500PS,
+    GFSR_250PS
+} tGyroRange;
+
+typedef enum 
+{
+	ODR_800HZ,
+	ODR_400HZ,
+	ODR_200HZ,
+	ODR_100HZ,
+	ODR_50HZ,
+	ODR_12_5HZ,
+	ODR_6_25HZ,
+	ODR_1_56HZ
+} tOutputDataRate;
 
 typedef struct
 {
