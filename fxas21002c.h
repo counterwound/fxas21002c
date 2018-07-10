@@ -25,7 +25,7 @@ extern "C"
 #define GYRO_STATUS         0x00
 #define GYRO_OUT_X_MSB      0x01
 #define GYRO_OUT_X_LSB      0x02
-#define GYRO_OUT_Y          0x03
+#define GYRO_OUT_Y_MSB      0x03
 #define GYRO_OUT_Y_LSB      0x04
 #define GYRO_OUT_Z_MSB      0x05
 #define GYRO_OUT_Z_LSB      0x06
@@ -94,10 +94,10 @@ void GyroActive(uint32_t ui32SlaveAddress);
 void GyroReset(uint32_t ui32SlaveAddress);
 void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR);
 void GyroOutputDataRate(uint32_t ui32SlaveAddress,  tOutputDataRate tODR);
+void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD );
 //void GyroReady(uint32_t ui32SlaveAddress);
 //void GyroSelfTest(uint32_t ui32SlaveAddress, _Bool bState);
 //void GyroTemp(uint32_t ui32SlaveAddress);
-//void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD );
 
 //*****************************************************************************
 // Mark the end of the C bindings section for C++ compilers.

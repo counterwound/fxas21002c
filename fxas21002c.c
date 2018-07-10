@@ -45,6 +45,21 @@ void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR)
     I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG0, ui8Register, sizeof(ui8Register));
 }
 
+void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD )
+{
+    uint8_t ui8Register[7];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_STATUS, ui8Register, sizeof(ui8Register));
+
+    printf("\r\nSTATUS:%02x MSBX:%02X LSBX:%02X MSBY:%02X LSBY:%02X MSBZ:%02X LSBZ:%02X",
+                ui8Register[0],ui8Register[1],ui8Register[2],ui8Register[3],ui8Register[4],
+                ui8Register[5],ui8Register[6]);
+
+    // copy the 16 bit gyroscope byte data into 16 bit words
+    tRD->x = (int16_t)((ui8Register[1] << 8) | (ui8Register[2] >> 0));
+    tRD->y = (int16_t)((ui8Register[3] << 8) | (ui8Register[4] >> 0));
+    tRD->z = (int16_t)((ui8Register[5] << 8) | (ui8Register[6] >> 0));
+}
+
 void GyroOutputDataRate(uint32_t ui32SlaveAddress,  tOutputDataRate tODR)
 {
     uint8_t ui8Register[1];
@@ -77,18 +92,4 @@ void GyroOutputDataRate(uint32_t ui32SlaveAddress,  tOutputDataRate tODR)
 //    int8_t i8Register[1];
 //    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG1, i8Register, sizeof(i8Register));
 //    printf("\r\nTemperature: %d degC",i8Register[0]);
-//}
-
-//void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD )
-//{
-//    uint8_t ui8Register[6];
-//    I2CGyroReceive(ui32SlaveAddress, GYRO_OUT_X_MSB, ui8Register, sizeof(ui8Register));
-//
-//    printf("\r\nX:%02X X:%02X Y:%02X Y:%02X Z:%02X Z:%02X",
-//                ui8Register[0],ui8Register[1],ui8Register[2],ui8Register[3],ui8Register[4],ui8Register[5]);
-//
-//    // copy the 16 bit gyroscope byte data into 16 bit words
-//    tRD->x = (int16_t)((ui8Register[0] << 8) | (ui8Register[1] >> 2));
-//    tRD->y = (int16_t)((ui8Register[2] << 8) | (ui8Register[3] >> 2));
-//    tRD->z = (int16_t)((ui8Register[4] << 8) | (ui8Register[5] >> 2));
 //}
