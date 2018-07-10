@@ -46,6 +46,12 @@ extern "C"
 #define GYRO_CTRL_REG3      0x15
 
 //*****************************************************************************
+// Register commands
+//*****************************************************************************
+#define GYRO_RESET          0x40
+
+
+//*****************************************************************************
 // Functions
 //*****************************************************************************
 
@@ -86,11 +92,12 @@ extern void I2CGyroSend(uint32_t ui32SlaveAddress, uint8_t ui32SlaveRegister,
 // FXAS21002C functions
 void GyroStandby(uint32_t ui32SlaveAddress);
 void GyroActive(uint32_t ui32SlaveAddress);
-void GyroReady(uint32_t ui32SlaveAddress);
 void GyroReset(uint32_t ui32SlaveAddress);
-void GyroSelfTest(uint32_t ui32SlaveAddress, _Bool bState);
-void GyroTemp(uint32_t ui32SlaveAddress);
-void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD );
+void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR);
+//void GyroReady(uint32_t ui32SlaveAddress);
+//void GyroSelfTest(uint32_t ui32SlaveAddress, _Bool bState);
+//void GyroTemp(uint32_t ui32SlaveAddress);
+//void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD );
 
 //*****************************************************************************
 // Mark the end of the C bindings section for C++ compilers.
