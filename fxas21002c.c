@@ -9,7 +9,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
-//#include <unistd.h>
 #include "fxas21002c.h"
 
 void GyroStandby(uint32_t ui32SlaveAddress)
@@ -28,21 +27,30 @@ void GyroActive(uint32_t ui32SlaveAddress)
     I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
 }
 
+void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR)
+{
+    uint8_t ui8Register[1];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG0, ui8Register, sizeof(ui8Register));
+    ui8Register[0] &= ~(0B00000011);
+    ui8Register[0] |= tGFSR;
+    I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG0, ui8Register, sizeof(ui8Register));
+}
+
+void GyroOutputDataRate(uint32_t ui32SlaveAddress,  tOutputDataRate tODR)
+{
+    uint8_t ui8Register[1];
+    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
+    ui8Register[0] &= ~(0B00011100);
+    ui8Register[0] |= (tODR << 2 );
+    I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
+}
+
 void GyroReset(uint32_t ui32SlaveAddress)
 {
     uint8_t ui8Register[1];
 
     ui8Register[0] = GYRO_RESET;
     I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
-}
-
-void GyroRange(uint32_t ui32SlaveAddress, tGyroRange tGFSR)
-{
-    uint8_t ui8Register[1];
-    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG0, ui8Register, sizeof(ui8Register));
-    ui8Register[0] &= ~(0B00000011);
-    ui8Register[0] |= tGFSR;    
-    I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG0, ui8Register, sizeof(ui8Register));
 }
 
 void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD )
@@ -54,15 +62,6 @@ void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD )
     tRD->x = (int16_t)((ui8Register[1] << 8) | (ui8Register[2] >> 0));
     tRD->y = (int16_t)((ui8Register[3] << 8) | (ui8Register[4] >> 0));
     tRD->z = (int16_t)((ui8Register[5] << 8) | (ui8Register[6] >> 0));
-}
-
-void GyroOutputDataRate(uint32_t ui32SlaveAddress,  tOutputDataRate tODR)
-{
-    uint8_t ui8Register[1];
-    I2CGyroReceive(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
-    ui8Register[0] &= ~(0B00011100);
-    ui8Register[0] |= (tODR << 2 );
-    I2CGyroSend(ui32SlaveAddress, GYRO_CTRL_REG1, ui8Register, sizeof(ui8Register));
 }
 
 //void GyroReady(uint32_t ui32SlaveAddress)
