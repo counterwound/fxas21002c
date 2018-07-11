@@ -50,10 +50,6 @@ void GyroGetData(uint32_t ui32SlaveAddress, tRawData *tRD )
     uint8_t ui8Register[7];
     I2CGyroReceive(ui32SlaveAddress, GYRO_STATUS, ui8Register, sizeof(ui8Register));
 
-    printf("\r\nSTATUS:%02x MSBX:%02X LSBX:%02X MSBY:%02X LSBY:%02X MSBZ:%02X LSBZ:%02X",
-                ui8Register[0],ui8Register[1],ui8Register[2],ui8Register[3],ui8Register[4],
-                ui8Register[5],ui8Register[6]);
-
     // copy the 16 bit gyroscope byte data into 16 bit words
     tRD->x = (int16_t)((ui8Register[1] << 8) | (ui8Register[2] >> 0));
     tRD->y = (int16_t)((ui8Register[3] << 8) | (ui8Register[4] >> 0));
