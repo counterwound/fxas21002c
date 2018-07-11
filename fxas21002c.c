@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <unistd.h>
+//#include <unistd.h>
 #include "fxas21002c.h"
 
 void GyroStandby(uint32_t ui32SlaveAddress)
